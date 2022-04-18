@@ -1,0 +1,7 @@
+{
+  "service": "app",
+  "dockerComposeFile": "./docker-compose.yml",
+  "workspaceFolder": "/opt/app",
+  "extensions": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"],
+  "onCreateCommand": "bash ${containerWorkspaceFolder}/.devcontainer/create.sh" // コンテナ作成時に実行
+}
