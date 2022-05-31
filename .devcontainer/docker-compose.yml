@@ -6,7 +6,7 @@ services:
     tty: true
     # 高速化の設定
     volumes:
-      - ../../app:/opt/app:delegated
+      - ../:/opt/app:delegated
       - node_modules_volume:/opt/app/node_modules
 
 volumes:
