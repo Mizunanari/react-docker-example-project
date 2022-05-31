@@ -22,7 +22,7 @@
 │   ├── settings.json       # コードフォーマッタなどのvscode設定
 │   └── tasks.json          # npm run startを自動で実行
 ├── README.md
-├── docs　　　　　　　　　　　  # READEME.mdで使用
+├── docs                    # READEME.mdで使用
 └── src                     # ソースコード
 ```
 
