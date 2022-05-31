@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+# Example PJ
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+これは、下記のソフトウェアを組み合わせたサンプルプロジェクトです。
+画面ははmuiのサンプルを使用しています。
 
-## Available Scripts
+* vscode
+* remote container
+* react
+* docker
+* mui
 
-In the project directory, you can run:
+```
+.
+├── .devcontainer
+│   ├── DockerFile          # イメージのbuild時に実行
+│   ├── create.sh           # コンテナの起動時に実行
+│   ├── docker-compose.yml  # dockerの制御
+│   └── devcontainer.json   # Dockerfileとcreate.shを実行するよう設定
+├── .vscode
+│   ├── extensions.json     # 推奨パッケージを設定
+│   ├── launch.json         # vscodeデバック機能でFastAPIが実行できるよう設定
+│   ├── settings.json       # コードフォーマッタなどのvscode設定
+│   └── tasks.json          # npm run startを自動で実行
+├── README.md
+├── docs　　　　　　　　　　　  # READEME.mdで使用
+└── src                     # ソースコード
+```
 
-### `npm start`
+## 環境構築
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Macでのセットアップ方法を紹介します。
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 必要GUIアプリケーションのインストール
 
-### `npm test`
+homebrewを使用します。  
+インストールされていない場合はこちらのインストールスクリプトを使用します。
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 
-### `npm run build`
+必要アプリケーションをインストール。  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+brew install --cask visual-studio-code
+brew install --cask docker
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 拡張機能のインストール
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)をvscodeにインストール。
 
-### `npm run eject`
+### コンテナの展開
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+このリポジトリのソースをクローンして、vscodeで開く。  
+右下の表示または、「command」+「p」から「Reopen in Container」を選択。
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![image](docs/image/react-reopen-in-container.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### taskの実行
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+タスクを使用してreactを実行します。
 
-## Learn More
+![image](docs/image/react-task-run.png)
+![image](docs/image/react-task-npm-start.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+自動実行を許可することで、フォルダーを開いた際に自動実行することができます。
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+[Tasks in Visual Studio Code](https://code.visualstudio.com/docs/editor/tasks#_run-behavior)
 
-### Code Splitting
+![image](docs/image/react-task-auto-run.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### デバックの機能
 
-### Analyzing the Bundle Size
+「F5」からデバックを使用してブラウザを起動します。  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![image](docs/image/react-debug.png)
 
-### Making a Progressive Web App
+この操作を行うことで、ブラウザのコンソールをvscodeで確認できます。また、ブレイクポイントといったデバック機能を使用することができます。
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## devcontainer.jsonについて
 
-### Advanced Configuration
+[devcontainer.json reference](https://code.visualstudio.com/docs/remote/devcontainerjson-reference)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+__Dockerfile__  
+build時に実行される。
 
-### Deployment
+__devcontainer.json "onCreateCommand"__  
+コンテナ起動時に実行するコマンドを記載できます。  
+フォルダーがbindされた後に実行されるので、bashスクリプトを指定することで任意のコマンドが実行できます。
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+__docker-compose.yml__
+node_modulesなどのファイル入出力高速化のためにbindを設定。
